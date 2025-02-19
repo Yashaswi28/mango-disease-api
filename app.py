@@ -12,7 +12,14 @@ import os
 app = FastAPI()
 
 # Load the trained model
+import gdown
+
 MODEL_PATH = "mango_disease_model.h5"
+MODEL_URL = "https://drive.google.com/1l9gI3iQROToXICjB-y_GMRZsp3GJvmjD"
+
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model from Google Drive...")
+    gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
 if not os.path.exists(MODEL_PATH):
     raise FileNotFoundError(f"Model file {MODEL_PATH} not found. Train and save the model first.")
 model = tf.keras.models.load_model(MODEL_PATH)
